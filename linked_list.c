@@ -29,36 +29,71 @@ void printDataOfAll(node **head)
 /**
  * createNode - Function to create a new node and add it to the end of the linked list.
  * @head: pointer to a pointer
+ * @num: number of node tobe created
  */
-void createNode(node **head)
+void createNode(node **head, int num)
 {
     node *temp, *help;
     int nf;
     char cf;
     
-    /*Prompt the user to enter data for the new node.*/
-    printf("Enter a char for the node: ");
-    scanf(" %c", &cf);
-    printf("Enter an int for the node: ");
-    scanf(" %d", &nf);
-    
-    /*Allocate memory for the new node.*/
-    help = malloc(sizeof(node));
-    help->c = cf;
-    help->n = nf;
-    
-    /*Find the end of the linked list and append the new node.*/
-    temp = *head;
-    if (!temp->next)
+    while (num > 0)
     {
-        (*head)->next = help;
+        /*Prompt the user to enter data for the new node.*/
+        printf("Enter a char for the node: ");
+        scanf(" %c", &cf);
+        printf("Enter an int for the node: ");
+        scanf(" %d", &nf);
+        
+        /*Allocate memory for the new node.*/
+        help = malloc(sizeof(node));
+        help->c = cf;
+        help->n = nf;
+        
+        /*Find the end of the linked list and append the new node.*/
+        temp = *head;
+    
+        while (temp->next)
+        {
+            temp = temp->next;
+        }
+        temp->next = help;
+        help->next = NULL;
+            
+        num--;
+
     }
-    while (temp->next)
-    {
-        temp = temp->next;
-    }
-    temp->next = help;
-    help->next = NULL;
+}
+
+/**
+ * createNode - Function to create a new node and add it to the end of the linked list.
+ * @head: pointer to a pointer
+ * @num: number of node tobe created
+ */
+void createNodeStart(node **head, int num)
+{
+        node *help;
+        char cf;
+        int nf;
+        
+        while (num > 0)
+        {
+            /*Prompt the user to enter data for the new node.*/
+            printf("Enter a char for the node: ");
+            scanf(" %c", &cf);
+            printf("Enter an int for the node: ");
+            scanf(" %d", &nf);
+            
+            help = malloc(sizeof(node));
+            
+            help->c = cf;
+            help->n = nf;
+            
+            help->next = *head;
+            *head = help;
+            
+            num--;
+        }
 }
 
 /**
@@ -74,11 +109,11 @@ int main()
     head->n = 0;
     head->next = NULL;
     
-    /*Prompt the user to create new nodes and add them to the linked list.*/
-    createNode(&head);
-    createNode(&head);
-    createNode(&head);
-    createNode(&head);
+    /*Prompt the user to create new nodes and add them to end of the linked list.*/
+    createNode(&head, 4);
+    
+    /*Prompt the user to create new nodes and add them to start of the linked list.*/
+    createNodeStart(&head, 1);
 
     /*Print the data of all nodes in the linked list.*/
     printDataOfAll(&head);
