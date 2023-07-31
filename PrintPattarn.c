@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 void printPattarn(int num)
 {
   int i, j, val;
