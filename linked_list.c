@@ -96,6 +96,24 @@ void createNodeStart(node **head, int num)
         }
 }
 
+node *reverse_listint(node **head)
+{
+    node *next = NULL;
+    node *prv = NULL;
+
+    while (*head != NULL)
+    {
+        next = (*head)->next;
+        (*head)->next = prv;
+        prv =  *head;
+        *head = next;
+    }
+
+    *head = prv;
+
+    return (*head);
+}
+
 /**
  * main - Intialization function.
  */
@@ -117,6 +135,15 @@ int main()
 
     /*Print the data of all nodes in the linked list.*/
     printDataOfAll(&head);
+
+    /*reverse the list*/
+    reverse_listint(&head);
+
+    printf("\n----rev0---------\n");
+
+    printDataOfAll(&head);
+
+    printf("\n------revend-----\n");
 
     /*Print a message indicating the end of the program.*/
     printf("Finish");
